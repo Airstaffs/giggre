@@ -1,0 +1,33 @@
+{
+  "name": "mobile-app",
+  "version": "3.8.4",
+  "description": "=== Mobile App Canvas Plugin - Convert your Website Into an App for iOS and Android === Contributors: 50pixels, psac50, vitorargos, georgespetrequin, mobileappdev, xsvet, mihaidumitrascu, minhnguyen25 Tags: Mobile App, Native Mobile App, app for WordPress, mobile app plugin, native app plugin, push notifications, website to mobile app, WordPress app builder, WordPress app maker, WordPress blog app, ios app, Android app Requires at least: 3.6 Tested up to: 5.7 Stable tag: 3.5.6 License: GPLv2 or later Plugin URI: https://www.mobiloud.com/?ref=plugininfo License URI: http://www.gnu.org/licenses/gpl-2.0.html",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mobiloudsupport/mobile-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mobiloudsupport/mobile-app/issues"
+  },
+  "homepage": "https://github.com/mobiloudsupport/mobile-app#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^30.4.0",
+    "npm-force-resolutions": "^0.0.10"
+  },
+  "dependencies": {
+    "@sentry/node": "^8.36.0",
+    "puppeteer-core": "^23.7.0",
+    "ws": "^8.18.0"
+  },
+  "overrides": {
+    "ws": "^8.18.0",
+    "cookie": "^0.7.0"
+  }
+}

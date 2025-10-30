@@ -1,0 +1,15 @@
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backups/
+wp-config.php
+*.log
+*.zip
+*.tar
+*.gz
+*.mp4
+*.mov
+*.mkv
+.DS_Store
+node_modules/
+vendor/
