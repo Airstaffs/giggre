@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) exit;
  * Tasker books a task
  */
 function giggre_ajax_book_task() {
-    check_ajax_referer('giggre_booking_nonce', 'nonce');
+    check_ajax_referer('giggre_nonce', 'nonce');
 
     if (!is_user_logged_in()) {
         wp_send_json_error(['message' => 'You must be logged in.']);
@@ -75,7 +75,7 @@ add_action('wp_ajax_nopriv_giggre_book_task', 'giggre_ajax_book_task');
  * Tasker marks a task as completed (request confirmation)
  */
 function giggre_tasker_mark_completed() {
-    check_ajax_referer('giggre_booking_nonce', 'nonce');
+    check_ajax_referer('giggre_nonce', 'nonce');
 
     if (!is_user_logged_in()) {
         wp_send_json_error(['message' => 'You must be logged in.']);
@@ -112,8 +112,9 @@ add_action('wp_ajax_giggre_tasker_mark_completed', 'giggre_tasker_mark_completed
 /**
  * Poster updates single booking status (Accept/Reject/Completed)
  */
+add_action('wp_ajax_nopriv_giggre_update_status', 'giggre_update_status');
 add_action('wp_ajax_giggre_update_status', function() {
-    check_ajax_referer('giggre_booking_nonce', 'nonce');
+    check_ajax_referer('giggre_nonce', 'nonce');
 
     if (!current_user_can('poster') && !current_user_can('administrator')) {
         wp_send_json_error(['message' => 'Not allowed']);
@@ -152,8 +153,9 @@ add_action('wp_ajax_giggre_update_status', function() {
 /**
  * Bulk update booking statuses (Poster side)
  */
+add_action('wp_ajax_nopriv_giggre_bulk_update_booking', 'giggre_bulk_update_booking');
 function giggre_bulk_update_booking() {
-    check_ajax_referer('giggre_booking_nonce', 'nonce');
+    check_ajax_referer('giggre_nonce', 'nonce');
 
     if (!current_user_can('poster') && !current_user_can('administrator')) {
         wp_send_json_error(['message' => 'Not allowed']);
@@ -217,8 +219,9 @@ add_action('admin_init', function() {
 /**
  * AJAX: Render bookings table for a single task
  */
+add_action('wp_ajax_nopriv_giggre_render_bookings', 'giggre_render_bookings');
 add_action('wp_ajax_giggre_render_bookings', function() {
-    check_ajax_referer('giggre_booking_nonce', 'nonce');
+    check_ajax_referer('giggre_nonce', 'nonce');
 
     $task_id = intval($_POST['task_id'] ?? 0);
     if (!$task_id) {

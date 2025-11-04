@@ -62,4 +62,33 @@ jQuery(document).ready(function($) {
             alert('Failed to refresh bookings.');
         });
     }
+
+    /**
+     * 🧠 SWITCH ROLE TOGGLE
+     */
+    $(document).on('change', '.giggre-switch-role-toggle', function () {
+        const checkbox = $(this);
+        const isPoster = checkbox.is(':checked');
+        const newRole = isPoster ? checkbox.data('role-on') : checkbox.data('role-off');
+        const label = checkbox.closest('.giggre-role-toggle').find('.role-label');
+
+        label.text('Switching...');
+
+        $.post(giggre_ajax.ajax_url, {
+            action: 'giggre_switch_role',
+            role: newRole,
+            nonce: giggre_ajax.nonce
+        }, function (response) {
+            if (response.success) {
+                label.text(response.data.message);
+                setTimeout(() => {
+                    window.location.href = response.data.redirect;
+                }, 600);
+            } else {
+                alert(response.data.message || 'Error switching role');
+                checkbox.prop('checked', !isPoster);
+                label.text(isPoster ? 'Poster Mode' : 'Tasker Mode');
+            }
+        });
+    });
 });

@@ -71,7 +71,7 @@ function giggre_register_form() {
         if (in_array('tasker', wp_get_current_user()->roles)) {
             wp_redirect(site_url('/tasker-dashboard/'));
         } else {
-            wp_redirect(admin_url('edit.php?post_type=giggre-task'));
+            wp_redirect(admin_url('/dashboard-poster/'));
         }
         return ob_get_clean();
     }
@@ -135,7 +135,8 @@ add_action('init', function () {
         if ($role === 'tasker') {
             wp_redirect(site_url('/tasker-dashboard/'));
         } else {
-            wp_redirect(admin_url('edit.php?post_type=giggre-task'));
+            wp_redirect(admin_url('/dashboard-poster/
+            '));
         }
         exit;
     }
@@ -151,7 +152,7 @@ function giggre_login_form() {
         if (in_array('tasker', wp_get_current_user()->roles)) {
             wp_redirect(site_url('/tasker-dashboard/'));
         } else {
-            wp_redirect(admin_url('edit.php?post_type=giggre-task'));
+            wp_redirect(admin_url('/dashboard-poster/'));
         }
         return ob_get_clean();
     }
@@ -202,7 +203,7 @@ add_action('init', function () {
         if (in_array('tasker', $user->roles)) {
             wp_redirect(site_url('/tasker-dashboard/'));
         } elseif (in_array('poster', $user->roles)) {
-            wp_redirect(admin_url('edit.php?post_type=giggre-task'));
+            wp_redirect(admin_url('/dashboard-poster/'));
         } else {
             wp_redirect(site_url('/choose-role/'));
         }
@@ -259,7 +260,7 @@ add_filter('nsl_login_redirect_url', function($url, $user_id, $provider) {
 
     // Poster → WP Admin edit.php (later: frontend dashboard)
     if (in_array('poster', (array) $user->roles)) {
-        return admin_url('edit.php?post_type=giggre-task');
+        return admin_url('/dashboard-poster/');
     }
 
     // Fallback → homepage
@@ -329,7 +330,7 @@ add_action('init', function () {
         if ($role === 'tasker') {
             wp_redirect(site_url('/tasker-dashboard/'));
         } else {
-            wp_redirect(admin_url('edit.php?post_type=giggre-task'));
+            wp_redirect(admin_url('/dashboard-poster/'));
         }
         exit;
     }
@@ -362,12 +363,14 @@ add_action('template_redirect', function () {
 });
 
 /**
- * Limit Poster role wp-admin access
+ * Limit Poster role wp-admin access — but NOT for administrators
  */
 add_action('admin_menu', function () {
     $user = wp_get_current_user();
-    if (in_array('poster', (array) $user->roles)) {
-        
+
+    // ✅ only hide menus if user is Poster AND NOT an Administrator
+    if (in_array('poster', (array) $user->roles, true) && !in_array('administrator', (array) $user->roles, true)) {
+
         // Remove all default menus
         remove_menu_page('index.php');                  // Dashboard
         remove_menu_page('edit.php');                   // Posts
@@ -380,29 +383,35 @@ add_action('admin_menu', function () {
         remove_menu_page('tools.php');                  // Tools
         remove_menu_page('options-general.php');        // Settings
 
-        // remove plugin installed post
+        // Remove plugin-specific menus
         remove_menu_page('edit.php?post_type=elementor_library');
         remove_menu_page('wpcf7');
-        // Optional: If you don’t want them to see Profile menu
+        // Optional: remove profile page
         // remove_menu_page('profile.php');
     }
 }, 999);
 
-add_action('admin_bar_menu', function($wp_admin_bar) {
+
+/**
+ * Limit Poster role admin-bar items — but NOT for administrators
+ */
+add_action('admin_bar_menu', function ($wp_admin_bar) {
     $user = wp_get_current_user();
-    if (in_array('poster', (array) $user->roles)) {
-        // Remove all default admin bar items
-        $wp_admin_bar->remove_node('wp-logo');        // WordPress logo
-        $wp_admin_bar->remove_node('about');          // About WordPress
-        $wp_admin_bar->remove_node('wporg');          // WordPress.org link
-        $wp_admin_bar->remove_node('documentation');  // Documentation
-        $wp_admin_bar->remove_node('support-forums'); // Support forums
-        $wp_admin_bar->remove_node('feedback');       // Feedback
-        $wp_admin_bar->remove_node('updates');        // Updates
-        $wp_admin_bar->remove_node('comments');       // Comments
-        $wp_admin_bar->remove_node('new-content');    // + New menu
-        $wp_admin_bar->remove_node('customize');      // Customize
-        // $wp_admin_bar->remove_node('site-name');      // Site name / dashboard link
+
+    // ✅ only clean admin bar if Poster but NOT Administrator
+    if (in_array('poster', (array) $user->roles, true) && !in_array('administrator', (array) $user->roles, true)) {
+
+        $wp_admin_bar->remove_node('wp-logo');
+        $wp_admin_bar->remove_node('about');
+        $wp_admin_bar->remove_node('wporg');
+        $wp_admin_bar->remove_node('documentation');
+        $wp_admin_bar->remove_node('support-forums');
+        $wp_admin_bar->remove_node('feedback');
+        $wp_admin_bar->remove_node('updates');
+        $wp_admin_bar->remove_node('comments');
+        $wp_admin_bar->remove_node('new-content');
+        $wp_admin_bar->remove_node('customize');
+        // $wp_admin_bar->remove_node('site-name');
     }
 }, 999);
 

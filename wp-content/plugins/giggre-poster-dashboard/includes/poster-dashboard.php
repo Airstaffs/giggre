@@ -57,7 +57,7 @@ function giggre_poster_dashboard_shortcode() {
             <ul class="giggre-tab-menu">
                 <li class="active" data-tab="my-gigs">📋 My Posted Gigs</li>
                 <li data-tab="new-gig">➕ Post New Gig</li>
-                <li data-tab="bookings">👥 All Gig</li>
+                <li data-tab="bookings">👥 Gigs (All)</li>
             </ul>
 
             <div class="giggre-tab-content">
@@ -66,9 +66,20 @@ function giggre_poster_dashboard_shortcode() {
                     <?php if ($q->have_posts()) : ?>
                         <?php while ($q->have_posts()) : $q->the_post(); ?>
                             <section id="task-<?php the_ID(); ?>" class="giggre-poster-task">
-                                <h3 class="giggre-task-title"><?php the_title(); ?></h3>
+                                <?php if ($image_id = get_field('featured_image')) : ?>
+                                    <div class="giggre-task-thumb">
+                                        <?php echo wp_get_attachment_image($image_id, 'medium', false, [
+                                        'style' => 'border-radius:8px;max-width:100%;margin-bottom:10px;'
+                                        ]); ?>
+                                    </div>
+                                <?php endif; ?>
 
-                                <!-- task meta bits (optional) -->
+                                <h3 class="giggre-task-title">
+                                    <?php the_title(); ?>
+                                    <button class="giggre-edit-btn" data-task="<?php the_ID(); ?>">✏️ Edit</button>
+                                    <button class="giggre-delete-btn" data-task="<?php the_ID(); ?>">🗑️ Delete</button>
+                                </h3>
+
                                 <div class="giggre-task-meta">
                                     <?php if ($price = get_field('price')): ?>
                                         <span class="meta"><strong>Price:</strong> $<?php echo esc_html($price); ?></span>
@@ -78,13 +89,50 @@ function giggre_poster_dashboard_shortcode() {
                                     <?php endif; ?>
                                 </div>
 
-                                <!-- BOOKINGS TABLE gets injected here via AJAX -->
                                 <div class="giggre-bookings-list"><em>Loading bookings…</em></div>
                             </section>
                         <?php endwhile; wp_reset_postdata(); ?>
                     <?php else: ?>
                         <p>No gigs posted yet.</p>
                     <?php endif; ?>
+
+                    <!-- Edit Gig Modal -->
+                    <div id="giggre-edit-modal" class="giggre-modal" style="display:none;">
+                        <div class="giggre-modal-content">
+                            <span class="giggre-close">&times;</span>
+                            <h3>Edit Gig</h3>
+
+                            <form id="giggre-edit-form">
+                                <input type="hidden" name="task_id" id="edit-task-id">
+
+                                <label>Title</label>
+                                <input type="text" name="title" id="edit-title" required>
+
+                                <label>Location</label>
+                                <input type="text" name="location" id="edit-location">
+
+                                <label>Price</label>
+                                <input type="number" name="price" id="edit-price">
+
+                                <label>Approx. Time</label>
+                                <input type="text" name="approx_time" id="edit-time">
+
+                                <label>Task Inclusions</label>
+                                <textarea name="tasks_inclusions" id="edit-inclusions"></textarea>
+
+                                <label>Featured Image</label>
+                                <div class="giggre-image-field">
+                                    <img id="edit-featured-preview" src="" alt="Preview" style="max-width:100%; border-radius:8px; margin-bottom:8px; display:none;">
+                                    <input type="hidden" name="featured_image" id="edit-featured-image">
+                                    <button type="button" id="giggre-upload-btn" class="giggre-upload-btn">📷 Upload / Change Image</button>
+                                    <button type="button" id="giggre-remove-image" class="giggre-remove-btn" style="display:none;">❌ Remove</button>
+                                </div>
+
+                                <button type="submit" class="giggre-save-btn">💾 Save Changes</button>
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ACF form (optional) to post new gig -->
@@ -152,7 +200,7 @@ function giggre_poster_dashboard_shortcode() {
                             </section>
                         <?php endwhile; wp_reset_postdata(); ?>
                     <?php else: ?>
-                        <p>No gigs posted yet.</p>
+                        <p>No booking yet.</p>
                     <?php endif; ?>
                 </div>
             </div>

@@ -1,0 +1,20 @@
+{
+  "name": "Giggre",
+  "short_name": "Giggre",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d6efd",
+  "icons": [
+    {
+      "src": "/wp-content/uploads/2025/08/cropped-favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/wp-content/uploads/2025/08/cropped-favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -99,80 +99,6 @@ add_action( 'admin_init', function() {
 	}
 });
 
-/* ------------------------------------------------------------------------
- * Email: Professional New User Registration Email (User Notification)
- * ------------------------------------------------------------------------
- * This overrides the default user-facing email sent on account creation.
- * It keeps admin notifications unchanged.
- * ---------------------------------------------------------------------- */
-add_filter('wp_new_user_notification_email', 'giggre_custom_new_user_email', 10, 3);
-function giggre_custom_new_user_email( $email, $user, $blogname ) {
-	// Build a secure password set link (multisite-safe)
-	$key = get_password_reset_key( $user );
-	if ( is_wp_error( $key ) ) {
-		$reset_url = wp_login_url(); // Fallback
-	} else {
-		$reset_url = add_query_arg(
-			array(
-				'action' => 'rp',
-				'key'    => $key,
-				'login'  => rawurlencode( $user->user_login ),
-			),
-			network_site_url( 'wp-login.php', 'login' )
-		);
-	}
-
-	// URLs
-	$login_url  = home_url( '/login' );           // or wp_login_url() if you use default WP login
-	$home_url   = home_url( '/' );
-
-	// From details
-	$from_name  = $blogname ?: 'Giggre';
-	$from_email = sanitize_email( get_option( 'admin_email' ) );
-
-	// Subject
-	$email['subject'] = sprintf( 'Welcome to %s — Your Account Details', wp_specialchars_decode( $from_name ) );
-
-	// Headers
-	$email['headers'] = array(
-		'Content-Type: text/html; charset=UTF-8',
-		'From: ' . esc_html( $from_name ) . ' <' . $from_email . '>',
-		'Reply-To: ' . esc_html( $from_name ) . ' <' . $from_email . '>',
-	);
-
-	// Simple brand styles
-	$styles = 'font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#111;';
-	$button = 'display:inline-block;padding:10px 16px;text-decoration:none;border-radius:6px;background:#111;color:#fff;';
-	$muted  = 'color:#6b7280;font-size:13px;';
-
-	// Message
-	$email['message'] = '
-		<div style="' . $styles . '">
-			<p>Hello <strong>' . esc_html( $user->user_login ) . '</strong>,</p>
-
-			<p>Welcome to <strong>' . esc_html( $from_name ) . '</strong>! Your account has been created successfully.</p>
-
-			<p><strong>Username:</strong> ' . esc_html( $user->user_login ) . '</p>
-
-			<p style="margin:20px 0 8px;"><strong>Set your password:</strong></p>
-			<p><a href="' . esc_url( $reset_url ) . '" style="' . $button . '">Create Your Password</a></p>
-
-			<p style="margin-top:18px;">After setting your password, you can log in anytime here:<br>
-				<a href="' . esc_url( $login_url ) . '">' . esc_html( $login_url ) . '</a>
-			</p>
-
-			<hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
-
-			<p style="' . $muted . '">
-				Need help? Reply to this email and our team will assist you.<br>
-				' . esc_html( $from_name ) . ' — <a href="' . esc_url( $home_url ) . '">' . esc_html( $home_url ) . '</a>
-			</p>
-		</div>
-	';
-
-	return $email;
-}
-
 
 function post_task_redirect_script() {
     wp_enqueue_script(
@@ -203,5 +129,23 @@ add_action('wp_footer', function() {
         get_template_part('giggre-popups/notice-popup');
     }
 });
+
+function giggre_add_pwa_support() {
+    // Link the manifest file
+    echo '<link rel="manifest" href="' . get_stylesheet_directory_uri() . '/manifest.json">';
+}
+add_action('wp_head', 'giggre_add_pwa_support');
+
+function giggre_enqueue_pwa_scripts() {
+    wp_enqueue_script(
+        'giggre-pwa-install',
+        get_stylesheet_directory_uri() . '/js/pwa-install.js',
+        array(),
+        null,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'giggre_enqueue_pwa_scripts');
+
 
 

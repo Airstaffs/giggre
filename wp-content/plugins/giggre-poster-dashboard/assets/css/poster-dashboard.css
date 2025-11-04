@@ -1,0 +1,630 @@
+/* Main Container */
+.giggre-poster-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Dashboard Header */
+.giggre-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ddd;
+}
+
+.giggre-dashboard-header h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #FFF;
+}
+
+/* Role Toggle */
+.giggre-role-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.giggre-role-toggle .role-label {
+  font-weight: 500;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* Switch Toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background-color: #0073aa;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 28px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Tabs Navigation */
+.giggre-dashboard-tabs {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.giggre-tab-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #f3f4f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.giggre-tab-menu li {
+  flex: 1;
+  padding: 16px 24px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+  color: #555;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  background: #f3f4f5;
+}
+
+.giggre-tab-menu li:hover {
+  background: #fff;
+  color: #23282d;
+}
+
+.giggre-tab-menu li.active {
+  background: white;
+  color: #0073aa;
+  border-bottom-color: #0073aa;
+}
+
+/* Tab Content */
+.giggre-tab-content {
+  padding: 30px;
+}
+
+.giggre-dashboard-section {
+  display: none;
+}
+
+.giggre-dashboard-section.active {
+  display: block;
+}
+
+/* Task/Gig Section */
+.giggre-poster-task {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 30px;
+  transition: box-shadow 0.2s ease;
+}
+
+.giggre-poster-task:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #0073aa;
+}
+
+.giggre-task-title {
+  margin: 0 0 16px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #23282d;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.giggre-task-title:before {
+  font-size: 20px;
+}
+
+/* Task Meta */
+.giggre-task-meta {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
+}
+
+.giggre-task-meta .meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #555;
+}
+
+.giggre-task-meta .meta strong {
+  color: #23282d;
+}
+
+/* Bookings List Container */
+.giggre-bookings-list {
+  margin-top: 20px;
+}
+
+.giggre-bookings-list h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #23282d;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Bookings Table */
+.giggre-bookings-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.giggre-bookings-table thead {
+  background: #23282d;
+}
+
+.giggre-bookings-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: white;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #191e23;
+}
+
+.giggre-bookings-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  color: #555;
+  font-size: 14px;
+}
+
+.giggre-bookings-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.giggre-bookings-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.giggre-bookings-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Email Links */
+.giggre-bookings-table a {
+  color: #0073aa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.giggre-bookings-table a:hover {
+  color: #005177;
+  text-decoration: underline;
+}
+
+/* Status Badges */
+.badge-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.badge-pending,
+.badge-publish {
+  background-color: #f0b849;
+  color: #fff;
+}
+
+.badge-approved,
+.badge-accept,
+.badge-accepted {
+  background-color: #0073aa;
+  color: #fff;
+}
+
+.badge-completed {
+  background-color: #46b450;
+  color: #fff;
+}
+
+.badge-rejected,
+.badge-reject {
+  background-color: #dc3232;
+  color: #fff;
+}
+
+.badge-mark-completed {
+  background-color: #826eb4;
+  color: #fff;
+}
+
+/* Action Buttons */
+.actions-cell {
+  white-space: nowrap;
+}
+
+.btn-action {
+  padding: 6px 12px;
+  margin-right: 6px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-action:hover {
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action:active {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-approve {
+  background-color: #0073aa;
+  color: white;
+}
+
+.btn-approve:hover {
+  background-color: #005177;
+  color: white;
+}
+
+.btn-reject {
+  background-color: #dc3232;
+  color: white;
+}
+
+.btn-reject:hover {
+  background-color: #c62828;
+  color: white;
+}
+
+.btn-complete {
+  background-color: #46b450;
+  color: white;
+}
+
+.btn-complete:hover {
+  background-color: #3a9940;
+  color: white;
+}
+
+.status-text {
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Empty State */
+.giggre-bookings-list p em {
+  color: #666;
+  font-size: 14px;
+}
+
+/* ACF Form Section */
+#tab-new-gig {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.acf-form {
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.acf-extra-fields {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #ddd;
+}
+
+.acf-extra-fields h4 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #23282d;
+}
+
+.acf-form-submit {
+    margin: 0 auto;
+}
+
+.giggre-category-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.giggre-cat-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.giggre-cat-item:hover {
+  background: #fff;
+  border-color: #0073aa;
+}
+
+.giggre-cat-item input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.giggre-cat-item input[type="checkbox"]:checked {
+  accent-color: #0073aa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .giggre-dashboard-header {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .giggre-tab-menu {
+    flex-direction: column;
+  }
+
+  .giggre-tab-menu li {
+    border-bottom: 1px solid #ddd;
+    border-left: 3px solid transparent;
+  }
+
+  .giggre-tab-menu li.active {
+    border-bottom-color: #ddd;
+    border-left-color: #0073aa;
+  }
+
+  .giggre-bookings-table {
+    font-size: 12px;
+  }
+
+  .giggre-bookings-table th,
+  .giggre-bookings-table td {
+    padding: 10px 8px;
+  }
+
+  .btn-action {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-bottom: 4px;
+    display: block;
+    width: 100%;
+  }
+
+  .giggre-task-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Loading State */
+.giggre-bookings-list em {
+  display: block;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Highlight Animation */
+.giggre-poster-task.highlight {
+  animation: highlightPulse 2s ease-in-out;
+}
+
+@keyframes highlightPulse {
+  0%,
+  100% {
+    background-color: #f9f9f9;
+    border-color: #ddd;
+  }
+  50% {
+    background-color: #fff8e5;
+    border-color: #0073aa;
+  }
+}
+
+/* Admin Page Specific Styles */
+.wrap .giggre-bookings-list {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.wrap .wp-list-table {
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
+
+.wrap .wp-list-table thead {
+  background: #23282d;
+}
+
+.wrap .wp-list-table thead th,
+.wrap .wp-list-table thead td {
+  color: white;
+  border-bottom: 1px solid #191e23;
+}
+
+.wrap .wp-list-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Bulk Actions */
+.bulk-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.bulk-actions select {
+  padding: 6px 10px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  height: auto;
+}
+
+.bulk-actions .button {
+  padding: 6px 16px;
+  border-radius: 3px;
+  font-weight: 500;
+  height: auto;
+}
+
+/* WordPress Button Overrides */
+.giggre-action.button {
+  background-color: #0073aa;
+  border-color: #0073aa;
+  color: white;
+  padding: 5px 12px;
+  height: auto;
+  width: 100%;
+}
+
+.giggre-action.button:hover {
+  background-color: #005177;
+  border-color: #005177;
+  color: white;
+}
+
+.button.disabled {
+  background-color: #f3f4f5;
+  border-color: #ddd;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.75;
+  padding: 5px 12px;
+}
+
+/* Refresh & Reset Buttons */
+.button-secondary {
+  background-color: #0073aa !important;
+  border-color: #0073aa !important;
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 3px;
+  font-weight: 500;
+  text-shadow: none !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.button-secondary:hover {
+  background-color: #005177 !important;
+  border-color: #005177 !important;
+  color: white !important;
+}
+
+.button-danger {
+  background-color: #dc3232 !important;
+  border-color: #dc3232 !important;
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 3px;
+  font-weight: 500;
+  text-shadow: none !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.button-danger:hover {
+  background-color: #c62828 !important;
+  border-color: #c62828 !important;
+  color: white !important;
+}

@@ -171,6 +171,7 @@ add_action('wp_ajax_giggre_tasker_mark_completed', function() {
 require_once plugin_dir_path(__FILE__) . 'includes/tasker-dashboard.php';
 // Load includes
 require_once plugin_dir_path(__FILE__) . 'includes/tasker-bookings.php';
+require_once plugin_dir_path(__FILE__) . 'includes/role-switch-handler.php';
 
 
 /**

@@ -42,6 +42,8 @@ function giggre_tasker_dashboard_shortcode() {
         return '<p>You do not have permission to view this page.</p>';
     }
 
+    $is_poster = in_array('poster', (array) wp_get_current_user()->roles);
+
     ob_start(); ?>
 
     <?php if (isset($_GET['updated']) && in_array($_GET['updated'], ['1', 'true'], true)) : ?>
@@ -86,7 +88,24 @@ function giggre_tasker_dashboard_shortcode() {
 
                     <!-- Profile -->
                     <div id="tab-profile" class="giggre-dashboard-section">
+                        
                         <h3>My Profile</h3>
+                        <div class="giggre-role-toggle">
+                            <label class="switch">
+                                <input 
+                                    type="checkbox" 
+                                    class="giggre-switch-role-toggle" 
+                                    data-role-on="poster" 
+                                    data-role-off="tasker"
+                                    <?php echo $is_poster ? 'checked' : ''; ?>
+                                >
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="role-label">
+                                <?php echo $is_poster ? 'Poster Mode' : 'Tasker Mode'; ?>
+                            </span>
+                        </div>
+
                         <?php if (function_exists('acf_form')) {
                             acf_form(array(
                                 'post_id'        => 'user_' . $user->ID,
