@@ -17,11 +17,11 @@ function giggre_render_bookings_table($task_id) {
     <table class="wp-list-table widefat fixed striped">
         <thead>
             <tr>
-                <th style="width:25%;">Tasker Name</th>
-                <th style="width:25%;">Email</th>
-                <th style="width:15%;">Status</th>
-                <th style="width:20%;">Date</th>
-                <th style="width:15%;">Actions</th>
+                <th>Tasker Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,15 +31,17 @@ function giggre_render_bookings_table($task_id) {
         </tbody>
     </table>
 
-    <div class="bulk-actions">
-        <select id="bulk-action">
-            <option value="">Bulk Actions</option>
-            <option value="accept">Accept</option>
-            <option value="reject">Reject</option>
-            <option value="completed">Confirm Completed</option>
-        </select>
-        <button id="apply-bulk" class="button action">Apply</button>
-    </div>
+    <?php if (count($taskers) > 1) : ?>
+        <div class="bulk-actions">
+            <select id="bulk-action">
+                <option value="">Bulk Actions</option>
+                <option value="accept">Accept</option>
+                <option value="reject">Reject</option>
+                <option value="completed">Confirm Completed</option>
+            </select>
+            <button id="apply-bulk" class="button action">Apply</button>
+        </div>
+    <?php endif; ?>
     <?php
 }
 
@@ -91,27 +93,29 @@ function giggre_render_booking_row($task_id, $tasker_id) {
                 : '-'; ?>
         </td>
         <td>
-            <?php if ($status === 'pending') : ?>
-                <button class="giggre-action button" data-action="accept"
-                    data-task="<?php echo esc_attr($task_id); ?>"
-                    data-tasker="<?php echo esc_attr($tasker_id); ?>">Accept</button>
-                <button class="giggre-action button" data-action="reject"
-                    data-task="<?php echo esc_attr($task_id); ?>"
-                    data-tasker="<?php echo esc_attr($tasker_id); ?>">Reject</button>
-            <?php elseif (in_array(strtolower($status), ['accept', 'accepted'])) : ?>
-                <span class="button disabled">Task Ongoing</span>
-            <?php elseif ($status === 'mark-completed') : ?>
-                <button class="giggre-action button button-secondary" 
-                    data-action="completed"
-                    data-task="<?php echo esc_attr($task_id); ?>"
-                    data-tasker="<?php echo esc_attr($tasker_id); ?>">
-                    Confirm Completed
-                </button>
-            <?php elseif ($status === 'completed') : ?>
-                <span class="button disabled">✅ Done</span>
-            <?php elseif (in_array(strtolower($status), ['reject', 'rejected'])) : ?>
-                <span class="button disabled">❌ Rejected</span>
-            <?php endif; ?>
+            <div class="giggre-action-container">
+                <?php if ($status === 'pending') : ?>
+                    <span class="giggre-action button" data-action="accept"
+                        data-task="<?php echo esc_attr($task_id); ?>"
+                        data-tasker="<?php echo esc_attr($tasker_id); ?>">Accept</span>
+                    <span class="giggre-action button" data-action="reject"
+                        data-task="<?php echo esc_attr($task_id); ?>"
+                        data-tasker="<?php echo esc_attr($tasker_id); ?>">Reject</span>
+                <?php elseif (in_array(strtolower($status), ['accept', 'accepted'])) : ?>
+                    <span class="button disabled">Task Ongoing</span>
+                <?php elseif ($status === 'mark-completed') : ?>
+                    <span class="giggre-action button button-secondary" 
+                        data-action="completed"
+                        data-task="<?php echo esc_attr($task_id); ?>"
+                        data-tasker="<?php echo esc_attr($tasker_id); ?>">
+                        Confirm Completed
+                    </span>
+                <?php elseif ($status === 'completed') : ?>
+                    <span class="button disabled">✅ Done</span>
+                <?php elseif (in_array(strtolower($status), ['reject', 'rejected'])) : ?>
+                    <span class="button disabled">❌ Rejected</span>
+                <?php endif; ?>
+            </div>
         </td>
     </tr>
     <?php

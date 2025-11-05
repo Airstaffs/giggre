@@ -1,257 +1,70 @@
 * {
-    font-family: Poppins, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
-.giggre-tasker-dashboard p {
-    margin-bottom: 0;
-}
-
-h2.giggre-dashboard-title, .giggre-user-info {
-    color: #fff;
-}
-
-.giggre-dashboard-section h3{
-    text-align: center;
-    margin-bottom: 20px
-}
-
-.giggre-bookings-table-wrapper {
-    overflow-x: auto;
-}
-
-/* Tabs */
-.giggre-dashboard-tabs {
-  border: 1px solid #eee;
-  border-radius: 10px;
-  background: #fff;
-}
-
-.giggre-tab-menu {
+.giggre-tasker-dashboard-main-wrapper {
+  min-width: 1260px;
+  margin: 0 auto;
+  position: relative;
   display: flex;
-  border-bottom: 1px solid #ddd;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
 }
 
-.giggre-tab-menu li {
-  flex: 1;
+.giggre-dashboard-title {
+  color: #f0f0f1;
   text-align: center;
-  padding: 12px;
-  cursor: pointer;
-  border-right: 1px solid #eee;
-  background: #f9f9f9;
-  transition: background 0.2s;
 }
 
-.giggre-tab-menu li:last-child {
-  border-right: none;
-}
-
-.giggre-tab-menu li.active {
-  background: #fff;
-  font-weight: 600;
-  border-bottom: 2px solid #2e81b2;
-}
-
-.giggre-tab-content .giggre-dashboard-section {
-  display: none;
-  padding: 20px;
-}
-
-.giggre-tab-content .giggre-dashboard-section.active {
-  display: block;
-}
-
-/* Header */
 .giggre-dashboard-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.giggre-dashboard-header .giggre-user-photo {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #2e81b2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .giggre-user-info {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1 1 250px;
 }
 
-/* ACF fields */
-.acf-form-submit {
-    margin-top: 40px;
-}
-.acf-field-image {
-    margin-bottom: 40px;
-}
-
-a.acf-button.button {
-    background: #2e81b2;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s;
-    text-decoration: none;
+.giggre-user-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3498db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-a.acf-button.button:hover {
-    background: #1d5c82;
-}
-.acf-field-image img{
-    max-height: 150px !important;
-}
-/* Success Message */
-.giggre-success-message {
-  background: #e6f9ec;
-  color: #2d7a36;
-  padding: 10px 15px;
-  border: 1px solid #b4e2c0;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-weight: 500;
+.giggre-user-info p {
+  margin: 0;
+  color: #f0f0f1;
 }
 
-/* Tag staus Styles */
-.tag {
-    display:inline-block;
-    padding:2px 8px;
-    border-radius:3px;
-    font-size:12px;
-    font-weight:600;
-    color:#fff;
-}
-.tag.success { background:#46b450; } /* WP green */
-.tag.error   { background:#dc3232; } /* WP red */
-.tag.warning { background:#ffb900; } /* WP orange */
-.tag.info   { background:#2e81b2; } /* WP blue */
-
-.bulk-actions {
-    margin-top: 10px;
+/* Switch Toggle */
+.giggre-role-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 1 auto;
 }
 
-.giggre-task-filters {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
+.role-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  min-width: 100px;
 }
 
-.giggre-filters-container {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-/* Search Input */
-.giggre-search-wrapper {
-    position: relative;
-    flex: 1;
-    min-width: 200px;
-    max-width: 300px;
-}
-
-.giggre-search-input {
-    width: 100%;
-    padding: 10px 40px 10px 15px;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    background: white;
-}
-
-.giggre-search-input:focus {
-    outline: none;
-    border-color: #0073aa;
-    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.1);
-}
-
-.giggre-search-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-    pointer-events: none;
-}
-
-/* Category Dropdown */
-.giggre-category-wrapper {
-    min-width: 180px;
-}
-
-.giggre-category-select {
-    width: 100%;
-    padding: 10px 15px;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    font-size: 14px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.giggre-category-select:focus {
-    outline: none;
-    border-color: #0073aa;
-    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.1);
-}
-
-/* Clear Button */
-.giggre-clear-btn {
-    padding: 10px 20px;
-    background: #666;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.giggre-clear-btn:hover {
-    background: #555;
-}
-
-/* Tasks Container */
-.giggre-tasks-container {
-    min-height: 200px;
-}
-
-/* Loading State */
-.giggre-loading {
-    text-align: center;
-    padding: 40px;
-    color: #666;
-}
-
-.giggre-loading::after {
-    content: "⏳ Loading tasks...";
-}
-
-/* switch */
-/* === Giggre Role Toggle Switch === */
 .switch {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 28px;
+  width: 60px;
+  height: 34px;
 }
 
 .switch input {
@@ -263,117 +76,203 @@ a.acf-button.button:hover {
 .slider {
   position: absolute;
   cursor: pointer;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: #ccc;
-  border-radius: 34px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.slider::before {
-  content: "";
+.slider:before {
   position: absolute;
-  height: 22px;
-  width: 22px;
-  left: 3px;
-  bottom: 3px;
-  background-color: #fff;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 input:checked + .slider {
-  background-color: #2196f3; /* iOS blue */
+  background-color: #3498db;
 }
 
-input:checked + .slider::before {
-  transform: translateX(22px);
+input:focus + .slider {
+  box-shadow: 0 0 1px #3498db;
 }
 
-.switch input:focus + .slider {
-  box-shadow: 0 0 2px #2196f3;
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
 
-/* Label wrapper */
-.giggre-role-toggle {
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+ul.giggre-tab-menu {
+  list-style: none;
+  margin: 0;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px;
+}
+
+ul.giggre-tab-menu li {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+ul.giggre-tab-menu li:hover,
+ul.giggre-tab-menu li.active {
+  background-color: #3498db;
+  color: #f0f0f1;
+}
+
+.giggre-tab-content {
+  background: #f0f0f1;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.giggre-dashboard-section {
+  display: none;
+}
+
+.giggre-dashboard-section.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.giggre-dashboard-section > h3 {
+  text-align: center;
+  line-height: 40px;
+}
+
+.giggre-task-filters {
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 10px;
 }
 
-.role-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  user-select: none;
+.giggre-search-box {
+  width: 100%;
 }
 
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .giggre-filters-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-    
-    .giggre-search-wrapper,
-    .giggre-category-wrapper {
-        min-width: auto;
-        max-width: none;
-    }
-    
-    .giggre-search-input,
-    .giggre-category-select {
-        padding: 12px 15px;
-        font-size: 16px; /* Prevents zoom on iOS */
-    }
-    
-    .giggre-search-input {
-        padding-right: 45px;
-    }
-    
-    .giggre-clear-btn {
-        padding: 12px 20px;
-        font-size: 16px;
-    }
+.giggre-category-box {
+  min-width: 250px;
 }
 
-@media (max-width: 480px) {
-    .giggre-task-filters {
-        margin: 0 -10px 20px -10px;
-        padding: 12px;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-    }
-    
-    .giggre-filters-container {
-        gap: 10px;
-    }
+.giggre-task-list {
+  padding: 20px 0;
 }
 
-/* Animation for filter changes */
-.giggre-tasks-container.filtering {
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
+.giggre-tasker-dashboard .giggre-task-card {
+  width: calc(100% / 3 - 15px);
+  border-radius: 0;
 }
 
-.giggre-tasks-container.filtering::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30px;
-    height: 30px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #0073aa;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+.giggre-tasker-dashboard .giggre-task-card img {
+  border-radius: 0;
 }
 
-@keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+.giggre-tasker-dashboard button.giggre-task-button {
+  height: 40px;
+}
+
+.giggre-tasker-dashboard .acf-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.giggre-tasker-dashboard .acf-fields > .acf-field {
+  padding: 0;
+}
+
+#refresh-tasker-bookings {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  .giggre-tasker-dashboard-main-wrapper {
+    min-width: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .giggre-dashboard-header {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .giggre-user-info {
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .switch {
+    width: 40px;
+    height: 24px;
+  }
+
+  .slider:before {
+    height: 16px;
+    width: 16px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(16px);
+  }
+
+  .giggre-tasker-dashboard {
+    margin-top: 10px;
+  }
+
+  .giggre-task-filters {
+    flex-direction: column;
+  }
+
+  .giggre-category-box {
+    width: 100%;
+  }
+
+  .giggre-tasker-dashboard .giggre-task-card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (min-width: 1200px) {
 }

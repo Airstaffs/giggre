@@ -33,11 +33,13 @@ function giggre_poster_dashboard_shortcode() {
     ]);
 
     ob_start(); ?>
-    <div class="giggre-poster-dashboard">
-        <div class="giggre-dashboard-header">
-            <h2>Gig Host Dashboard</h2>
 
-            <!-- Role switch -->
+    <div class="giggre-poster-dashboard-main-wrapper">
+        <h2 class="giggre-dashboard-title">Gig Host Dashboard</h2>
+
+        <div class="giggre-dashboard-header">
+            <div class="giggre-user-info"></div>
+
             <div class="giggre-role-toggle">
                 <label class="switch">
                     <input
@@ -53,15 +55,16 @@ function giggre_poster_dashboard_shortcode() {
             </div>
         </div>
 
-        <div class="giggre-dashboard-tabs">
-            <ul class="giggre-tab-menu">
-                <li class="active" data-tab="my-gigs">📋 My Posted Gigs</li>
-                <li data-tab="new-gig">➕ Post New Gig</li>
-                <li data-tab="bookings">👥 Gigs (All)</li>
-            </ul>
+        <div class="giggre-poster-dashboard">
+            <div class="giggre-dashboard-tabs">
+                <ul class="giggre-tab-menu">
+                    <li role="button" class="active" data-tab="my-gigs">📋 My Posted Gigs</li>
+                    <li role="button" data-tab="new-gig">➕ Post New Gig</li>
+                    <li role="button" data-tab="bookings">👥 Gigs (All)</li>
+                </ul>
+            </div>
 
             <div class="giggre-tab-content">
-                <!-- My gigs (each with bookings table placeholder) -->
                 <div id="tab-my-gigs" class="giggre-dashboard-section active">
                     <?php if ($q->have_posts()) : ?>
                         <?php while ($q->have_posts()) : $q->the_post(); ?>
@@ -76,8 +79,11 @@ function giggre_poster_dashboard_shortcode() {
 
                                 <h3 class="giggre-task-title">
                                     <?php the_title(); ?>
-                                    <button class="giggre-edit-btn" data-task="<?php the_ID(); ?>">✏️ Edit</button>
-                                    <button class="giggre-delete-btn" data-task="<?php the_ID(); ?>">🗑️ Delete</button>
+
+                                    <div class="giggre-task-button-container">
+                                        <button class="giggre-edit-btn" data-task="<?php the_ID(); ?>">✏️ Edit</button>
+                                        <button class="giggre-delete-btn" data-task="<?php the_ID(); ?>">🗑️ Delete</button>
+                                    </div>
                                 </h3>
 
                                 <div class="giggre-task-meta">
@@ -88,8 +94,6 @@ function giggre_poster_dashboard_shortcode() {
                                         <span class="meta"><strong>Location:</strong> <?php echo esc_html($loc); ?></span>
                                     <?php endif; ?>
                                 </div>
-
-                                <div class="giggre-bookings-list"><em>Loading bookings…</em></div>
                             </section>
                         <?php endwhile; wp_reset_postdata(); ?>
                     <?php else: ?>
@@ -135,7 +139,6 @@ function giggre_poster_dashboard_shortcode() {
                     </div>
                 </div>
 
-                <!-- ACF form (optional) to post new gig -->
                 <div id="tab-new-gig" class="giggre-dashboard-section">
                     <?php
                     if (function_exists('acf_form')) {
@@ -188,7 +191,6 @@ function giggre_poster_dashboard_shortcode() {
                     ?>
                 </div>
 
-                <!-- Aggregate bookings view -->
                 <div id="tab-bookings" class="giggre-dashboard-section">
                     <?php if ($q->have_posts()) : ?>
                         <?php while ($q->have_posts()) : $q->the_post(); ?>

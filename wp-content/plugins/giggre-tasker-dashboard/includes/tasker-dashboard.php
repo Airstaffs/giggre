@@ -53,8 +53,9 @@ function giggre_tasker_dashboard_shortcode() {
     <?php endif; ?>
 
     <div class="giggre-tasker-dashboard-main-wrapper">
+        <h2 class="giggre-dashboard-title">Giggre Dashboard</h2>
+
         <div class="giggre-dashboard-header">
-            <h2 class="giggre-dashboard-title">Giggre Dashboard</h2>
             <div class="giggre-user-info">
                 <?php 
                 $photo = get_field('profile_photo', 'user_' . $user->ID);
@@ -74,97 +75,93 @@ function giggre_tasker_dashboard_shortcode() {
                 }
                 ?>
             </div>
+            <!-- Role switch -->
+            <div class="giggre-role-toggle">
+                <label class="switch">
+                    <input 
+                        type="checkbox" 
+                        class="giggre-switch-role-toggle" 
+                        data-role-on="poster" 
+                        data-role-off="tasker"
+                        <?php echo $is_poster ? 'checked' : ''; ?>
+                    >
+                    <span class="slider round"></span>
+                </label>
+                <span class="role-label">
+                    <?php echo $is_poster ? 'Poster Mode' : 'Tasker Mode'; ?>
+                </span>
+            </div>
         </div>
-
+        
         <div class="giggre-tasker-dashboard">
             <div class="giggre-dashboard-tabs">
                 <ul class="giggre-tab-menu">
-                    <li data-tab="profile">👤 My Profile</li>
-                    <li class="active" data-tab="payouts">🔎 Browse Gigs</li>
-                    <li data-tab="bookings">📋 My Gigs</li>
+                    <li role="button" data-tab="profile">👤 My Profile</li>
+                    <li role="button" class="active" data-tab="payouts">🔎 Browse Gigs</li>
+                    <li role="button" data-tab="bookings">📋 My Gigs</li>
                 </ul>
+            </div>
 
-                <div class="giggre-tab-content">
+            <div class="giggre-tab-content">
 
-                    <!-- Profile -->
-                    <div id="tab-profile" class="giggre-dashboard-section">
-                        
-                        <h3>My Profile</h3>
-                        <div class="giggre-role-toggle">
-                            <label class="switch">
-                                <input 
-                                    type="checkbox" 
-                                    class="giggre-switch-role-toggle" 
-                                    data-role-on="poster" 
-                                    data-role-off="tasker"
-                                    <?php echo $is_poster ? 'checked' : ''; ?>
-                                >
-                                <span class="slider round"></span>
-                            </label>
-                            <span class="role-label">
-                                <?php echo $is_poster ? 'Poster Mode' : 'Tasker Mode'; ?>
-                            </span>
+                <!-- Profile -->
+                <div id="tab-profile" class="giggre-dashboard-section">
+                    <h3>My Profile</h3>
+                    
+                    <?php if (function_exists('acf_form')) {
+                        acf_form(array(
+                            'post_id'        => 'user_' . $user->ID,
+                            'field_groups'   => array('group_68c070237ef65'),
+                            'submit_value'   => 'Save Profile',
+                            'return'         => add_query_arg('updated', '1', get_permalink()),
+                            'updated_message'=> false
+                        ));
+                    } ?>
+                </div>
+
+                <!-- Browse Gigs -->
+                <div id="tab-payouts" class="giggre-dashboard-section active">
+                    <h3>🔎 Get a Gigs</h3>
+
+                    <!-- 🔹 Filter Controls -->
+                    <div class="giggre-task-filters">
+                        <!-- Search Input -->
+                        <div class="giggre-search-box">
+                            <input type="text" id="task-search" placeholder="Search gigs by title..." class="giggre-search-field">
                         </div>
-
-                        <?php if (function_exists('acf_form')) {
-                            acf_form(array(
-                                'post_id'        => 'user_' . $user->ID,
-                                'field_groups'   => array('group_68c070237ef65'),
-                                'submit_value'   => 'Save Profile',
-                                'return'         => add_query_arg('updated', '1', get_permalink()),
-                                'updated_message'=> false
-                            ));
-                        } ?>
-                    </div>
-
-                    <!-- Browse Gigs -->
-                    <div id="tab-payouts" class="giggre-dashboard-section active">
-                        <h3>🔎 Get a Gigs</h3>
-
-                        <!-- 🔹 Filter Controls -->
-                        <div class="giggre-task-filters">
-                            <div class="giggre-filters-row">
-                                <!-- Search Input -->
-                                <div class="giggre-search-box">
-                                    <input type="text" id="task-search" placeholder="Search gigs by title..." class="giggre-search-field">
-                                </div>
-                                <!-- Category Dropdown -->
-                                <div class="giggre-category-box">
-                                    <select id="task-category" class="giggre-category-field">
-                                        <option value="">All Categories</option>
-                                        <?php 
-                                        $categories = get_terms(array(
-                                            'taxonomy' => 'category',
-                                            'hide_empty' => false,
-                                        ));
-                                        if (!is_wp_error($categories) && !empty($categories)) {
-                                            foreach ($categories as $category) {
-                                                echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Task Container -->
-                        <div id="tasks-list">
-                            <?php echo do_shortcode('[giggre_tasks]'); ?>
+                        <!-- Category Dropdown -->
+                        <div class="giggre-category-box">
+                            <select id="task-category" class="giggre-category-field">
+                                <option value="">All Categories</option>
+                                <?php 
+                                $categories = get_terms(array(
+                                    'taxonomy' => 'category',
+                                    'hide_empty' => false,
+                                ));
+                                if (!is_wp_error($categories) && !empty($categories)) {
+                                    foreach ($categories as $category) {
+                                        echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- My Gigs -->
-                    <div id="tab-bookings" class="giggre-dashboard-section">
-                        <h3>📋 My Gigs</h3>
-                        <button type="button" id="refresh-tasker-bookings" class="button button-secondary" style="margin:10px 0;">
-                            🔄 Refresh Gigs
-                        </button>
-                        <div class="giggre-bookings-list">
-                            <?php echo giggre_render_tasker_bookings_html(); ?>
-                        </div>
-                    </div>
+                    <!-- Task Container -->
+                    <?php echo do_shortcode('[giggre_tasks]'); ?>
+                </div>
 
+                <!-- My Gigs -->
+                <div id="tab-bookings" class="giggre-dashboard-section">
+                    <h3>📋 My Gigs</h3>
+                    
+                    <button type="button" id="refresh-tasker-bookings" class="button button-secondary">
+                        🔄 Refresh Gigs
+                    </button>
+                    <div class="giggre-bookings-list">
+                        <?php echo giggre_render_tasker_bookings_html(); ?>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
-
-
 # BEGIN LSCACHE
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
+
+## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block!
+
 <IfModule LiteSpeed>
 RewriteEngine on
 CacheLookup on
@@ -9,18 +9,22 @@ RewriteRule .* - [E=Cache-Control:no-autoflush]
 RewriteRule litespeed/debug/.*\.log$ - [F,L]
 RewriteRule \.litespeed_conf\.dat - [F,L]
 
-### marker ASYNC start ###
+### marker ASYNC start
+
 RewriteCond %{REQUEST_URI} /wp-admin/admin-ajax\.php
 RewriteCond %{QUERY_STRING} action=async_litespeed
-RewriteRule .* - [E=noabort:1]
-### marker ASYNC end ###
+RewriteRule .\* - [E=noabort:1]
 
-### marker DROPQS start ###
+### marker ASYNC end
+
+### marker DROPQS start
+
 CacheKeyModify -qs:fbclid
 CacheKeyModify -qs:gclid
-CacheKeyModify -qs:utm*
-CacheKeyModify -qs:_ga
-### marker DROPQS end ###
+CacheKeyModify -qs:utm\*
+CacheKeyModify -qs:\_ga
+
+### marker DROPQS end
 
 </IfModule>
 ## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
@@ -46,18 +50,26 @@ RewriteRule . /index.php [L]
 # END WordPress
 
 # BEGIN LiteSpeed
+
 # The directives (lines) between "BEGIN LiteSpeed" and "END LiteSpeed" are
+
 # dynamically generated, and should only be modified via WordPress filters.
+
 # Any changes to the directives between these markers will be overwritten.
+
 <IfModule Litespeed>
 SetEnv noabort 1
 </IfModule>
 # END LiteSpeed
 
 # BEGIN cPanel-generated php ini directives, do not edit
+
 # Manual editing of this file may result in unexpected behavior.
+
 # To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+
 # For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+
 <IfModule php8_module>
    php_flag display_errors Off
    php_value max_execution_time 30
@@ -85,7 +97,9 @@ SetEnv noabort 1
 # END cPanel-generated php ini directives, do not edit
 
 # php -- BEGIN cPanel-generated handler, do not edit
+
 # Set the “ea-php82” package as the default “PHP” programming language.
+
 <IfModule mime_module>
   AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
 </IfModule>
